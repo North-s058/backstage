@@ -15,7 +15,7 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 // port = 9528 npm run dev OR npm run dev --port = 9528
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
-const lintOnSave = process.env.NODE_ENV === 'development' ? 'error' : false // 是否开启eslint保存检测 ,它的有效值为 Boolean | 'default' | 'warning' | 'error'
+// const lintOnSave = process.env.NODE_ENV === 'development' ? 'error' : false // 是否开启eslint保存检测 ,它的有效值为 Boolean | 'default' | 'warning' | 'error'
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -29,7 +29,7 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
-  lintOnSave,
+  lintOnSave: false,
   productionSourceMap: false,
   devServer: {
     port: port,
@@ -38,7 +38,14 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js') // 可以在其他所有中间件之前执行的自定义中间件 mock-server，只在开发环境中生效，生产环境使用的mockjs拦截，见main.js
+    proxy: {
+      '/dev-api': {
+        target: 'http://gmall-h5-api.atguigu.cn',
+        pathRewrite: {
+          '^/dev-api': ''
+        }
+      }
+    }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

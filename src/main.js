@@ -1,5 +1,6 @@
 import Vue from 'vue'
 
+
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
@@ -24,7 +25,8 @@ import '@/permission' // permission control
  * Currently MockJs will be used in the production environment,
  * please remove it before going online ! ! !
  */
-if (process.env.NODE_ENV === 'production') { // NODE_ENV是 vue-cli-service 注入到环境当中的环境变量
+if (process.env.NODE_ENV === 'production') {
+  // NODE_ENV是 vue-cli-service 注入到环境当中的环境变量
   const { mockXHR } = require('../mock')
   mockXHR()
 }
@@ -35,10 +37,12 @@ if (process.env.NODE_ENV === 'production') { // NODE_ENV是 vue-cli-service 注�
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
+import API from '@/api'
+Vue.prototype.$API = API
 
 new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App)
 })
