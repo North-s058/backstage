@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form :inline="true"  :model='formInline' class="demo-form-inline">
+    <el-form :inline="true"  :model='formInline' class="demo-form-inline" :disabled="show">
       <el-form-item label="一级分类">
         <el-select v-model="formInline.cateForm.c1Id" placeholder="请选择" @change="changeHandler(1)">
           <el-option v-for="(c1,index) in list1" :key="c1.id" :label="c1.name" :value="c1.id"></el-option>
@@ -38,6 +38,7 @@ export default {
       list3:[]
     }
   },
+  props:['show'],
   mounted() {
     this.getCategory1List()
   },
@@ -50,6 +51,7 @@ export default {
 },
     async changeHandler(cate){
       const {c1Id,c2Id} = this.formInline.cateForm
+      this.getInfo(cate)
       if(cate==1){
         this.list2 = [],
           this.list3 = [],
@@ -68,8 +70,8 @@ export default {
         }
       }
     },
-    getInfo(){
-      this.$emit('getCategoryId',this.formInline.cateForm)
+    getInfo(cate){
+      this.$emit('getCategoryId',this.formInline.cateForm,cate)
     }
   },
 

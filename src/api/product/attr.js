@@ -14,5 +14,5 @@ export const reqAttrList = (cate1Id, cate2Id, cate3Id) =>
     method: "get",
   });
 
-export const reqSetAttrInfo = (data) =>
+export const reqAddOrUpdateAttr = (data) =>
   request({ url: "/admin/product/saveAttrInfo", method: "post", data });
