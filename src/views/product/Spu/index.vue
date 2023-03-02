@@ -4,7 +4,7 @@
       <category-select @getCategoryId="getCategoryId"></category-select>
     </el-card>
     <el-card>
-      <div v-show="sense==0">
+      <div v-show="scene==0">
         <!--        展示spu列表的结构-->
         <el-button type="primary" icon="el-icon-plus" :disabled="!category3Id" @click="addOrEditSpu">添加SPU</el-button>
         <el-table style="width: 100%" border :data="records">
@@ -32,9 +32,9 @@
           :total="total">
         </el-pagination>
       </div>
-      <spuform v-show="sense==1">
+      <spuform v-show="scene==1" @changeScene="changeScene">
       </spuform>
-      <skuform v-show="sense==2"></skuform>
+      <skuform v-show="scene==2"></skuform>
     </el-card>
   </div>
 </template>
@@ -54,7 +54,7 @@ export default {
       total:'',
       records:[],
 
-      sense: 0,  //显示状态的切换
+      scene: 0,  //显示状态的切换
 
 
     };
@@ -89,7 +89,11 @@ export default {
     },
     //添加或修改spu的回调
     addOrEditSpu(row){
-      this.sense=1
+      this.scene=1
+    },
+    //自定义事件
+    changeScene(scene){
+      this.scene = scene
     }
 
   },
