@@ -29,10 +29,10 @@
           :page-sizes="[3, 6, 9]"
           :page-size="limit"
           layout="prev, pager, next, jumper,->,sizes,total"
-          :total="total">
+          :total="total || 1">
         </el-pagination>
       </div>
-      <spuform v-show="scene==1" @changeScene="changeScene">
+      <spuform v-show="scene==1" @changeScene="changeScene" ref="spuForm">
       </spuform>
       <skuform v-show="scene==2"></skuform>
     </el-card>
@@ -90,11 +90,14 @@ export default {
     //添加或修改spu的回调
     addOrEditSpu(row){
       this.scene=1
+      this.$refs.spuForm.initSpuData(row)
+
     },
     //自定义事件
     changeScene(scene){
       this.scene = scene
-    }
+    },
+
 
   },
   components:{
